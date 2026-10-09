@@ -7,21 +7,42 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Hello from anand!</h1>
-    <p>This is my first website. It lives on GitHub and is published automatically.</p>
-  </header>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside class="sidebar">
+    <a class="site-name" href="#home">anand's site</a>
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
+  <div class="page-content">
+    <header id="home">
+      <h1>Hello from anand!</h1>
+      <p>This is my first website. It lives on GitHub and is published automatically.</p>
+    </header>
 
-  <main>
-    <h2>Try it</h2>
-    <button id="greet">Click me</button>
-    <p id="message"></p>
-  </main>
+    <main id="main" tabindex="-1">
+      <section aria-labelledby="try-title">
+        <h2 id="try-title">Try it</h2>
+        <button id="greet">Click me</button>
+        <p id="message" role="status"></p>
+      </section>
+      <section id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About Us</h2>
+        <p>Welcome to anand's classroom website. This is a space to learn, experiment, and share what we create.</p>
+      </section>
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <p>Have a question or an idea for this website?</p>
+        <p><a class="contact-link" href="https://github.com/jayaramcloud/anand-app/issues">Share it on our GitHub issues page</a>.</p>
+      </section>
+    </main>
 
-  <footer>
-    <p>Edit <code>public/index.html</code>, <code>public/style.css</code> and <code>public/script.js</code>, then push to GitHub.</p>
-  </footer>
-
+    <footer>
+      <p>Edit <code>public/index.html</code>, <code>public/style.css</code> and <code>public/script.js</code>, then push to GitHub.</p>
+    </footer>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
