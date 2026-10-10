@@ -32,6 +32,8 @@ test('left navigation links to Home, About Us and Contact sections', () => {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(html, /<header id="home">/);
-  assert.match(html, /id="greet"/);
-  assert.match(html, /id="message"/);
+});
+test('starter demo is removed along with its obsolete script reference', () => {
+  assert.doesNotMatch(html, /Try it|Click me|id="greet"|id="message"|id="try-title"/i);
+  assert.doesNotMatch(html, /<script[^>]*src="script\.js"/);
 });
