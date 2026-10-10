@@ -3,6 +3,11 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const html = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf8');
+test('Contact displays the supplied email link and postal address exactly', () => {
+  const contact = html.match(/<section id="contact"[^>]*>([\s\S]*?)<\/section>/)[1];
+  assert.match(contact, /href="mailto:Test\.Preparation@test\.com"[^>]*>Test\.Preparation@test\.com<\/a>/);
+  assert.ok(contact.includes('1234 Sandalia Ct Katy TX 77494'));
+});
 test('Home introduces software services and links visitors to Contact', () => {
   const home = html.match(/<header id="home">([\s\S]*?)<\/header>/)[1];
   assert.match(home, /Software services/);
