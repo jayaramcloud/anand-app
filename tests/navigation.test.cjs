@@ -3,6 +3,15 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const html = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf8');
+test('About Us presents technical and soft skills course lists', () => {
+  const about = html.match(/<section id="about"[^>]*>([\s\S]*?)<\/section>/)[1];
+  for (const heading of ['Technical Courses', 'Soft Skills Courses']) assert.ok(about.includes(heading));
+  const lists = [...about.matchAll(/<ul[^>]*>([\s\S]*?)<\/ul>/g)];
+  assert.equal(lists.length, 2);
+  for (const list of lists) assert.equal([...list[1].matchAll(/<li>/g)].length, 6);
+  for (const title of ['Python Programming', 'Java Programming', 'Web Development', 'SQL and Database Fundamentals', 'Cloud Computing Fundamentals', 'Software Testing and Quality Assurance', 'Business Communication', 'Teamwork and Collaboration', 'Leadership Skills', 'Time Management', 'Problem-Solving and Critical Thinking', 'Interview Preparation and Presentation Skills']) assert.ok(about.includes(title), title);
+  assert.match(about, /href="#contact"/);
+});
 test('Contact displays the supplied email link and postal address exactly', () => {
   const contact = html.match(/<section id="contact"[^>]*>([\s\S]*?)<\/section>/)[1];
   assert.match(contact, /href="mailto:Test\.Preparation@test\.com"[^>]*>Test\.Preparation@test\.com<\/a>/);
