@@ -3,6 +3,13 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const html = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf8');
+test('Home introduces software services and links visitors to Contact', () => {
+  const home = html.match(/<header id="home">([\s\S]*?)<\/header>/)[1];
+  assert.match(home, /Software services/);
+  for (const service of ['Custom software development', 'Web and mobile applications', 'Cloud solutions', 'Maintenance and support']) assert.ok(home.includes(service), service);
+  assert.match(home, /href="#contact"/);
+  assert.doesNotMatch(home, /This is my first website/);
+});
 test('left navigation links to Home, About Us and Contact sections', () => {
   const nav = html.match(/<nav\b[^>]*aria-label="Main navigation"[^>]*>([\s\S]*?)<\/nav>/);
   assert.ok(nav, 'accessible main navigation exists');
@@ -10,7 +17,7 @@ test('left navigation links to Home, About Us and Contact sections', () => {
     assert.match(nav[1], new RegExp(`<a[^>]*href="#${id}"[^>]*>\\s*${label}\\s*</a>`));
     assert.match(html, new RegExp(`id="${id}"`));
   }
-  assert.match(html, /Hello from anand!/);
+  assert.match(html, /<header id="home">/);
   assert.match(html, /id="greet"/);
   assert.match(html, /id="message"/);
 });
